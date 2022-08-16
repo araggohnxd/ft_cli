@@ -1,4 +1,3 @@
-
 #ifndef FT_CLI
 # define FT_CLI
 
@@ -7,87 +6,148 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <ctype.h>
-
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <dirent.h>
 # include <fcntl.h>
 
-# define MAKEFILE "NAME	= %s\n\
-CC		= clang\n\
-CFLAGS	= -Wall -Werror -Wextra -g\n\
-INCLUDE	= -I ./app/include\n\
+# define MAKEFILE "\
+NAME				:= %s\n\
 \n\
-SRC = main.c\n\
+HEADER_PATH			:= ./includes\n\
+HEADER_FILES		:= %s.h\n\
 \n\
-OBJS = $(SRC:.c=.o)\n\
-OBJ = $(addprefix ./app/obj/, $(OBJS))\n\
-OBJ_DIR = ./app/obj\n\
+SOURCE_PATH			:= ./sources\n\
+SOURCE_FILES		:= main.c\n\
 \n\
-RM = rm -rf\n\
+OBJECT_PATH			:= ./objects\n\
+OBJECT_FILES		:= $(SOURCE_FILES:%%.c=$(OBJECT_PATH)/%%.o)\n\
 \n\
-VPATH = ./app/src\n\
+CC					:= cc\n\
+CFLAGS				:= -g3 -Wall -Werror -Wextra\n\
+IFLAGS				:= -I $(HEADER_PATH)\n\
+REMOVE				:= rm -rf\n\
 \n\
-$(OBJ_DIR)/%%.o: %%.c\n\
-			$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@\n\
+vpath				%%.c $(SOURCE_PATH)\n\
+vpath				%%.h $(HEADER_PATH)\n\
 \n\
-all: obj_dir $(NAME)\n\
+all:				$(NAME)\n\
 \n\
-$(NAME): $(OBJ)\n\
-		$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)\n\
+$(NAME):			$(OBJECT_FILES)\n\
+					$(CC) $(CFLAGS) -o $@ $(OBJECT_FILES)\n\
+\n\
+$(OBJECT_PATH)/%%.o:	%%.c $(HEADER_FILES) Makefile | $(OBJECT_PATH)\n\
+					$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@\n\
+\n\
+$(OBJECT_PATH):\n\
+					mkdir -p $@\n\
 \n\
 clean:\n\
-	$(RM) $(OBJ)\n\
+					$(REMOVE) $(OBJECT_PATH)\n\
 \n\
-fclean:\n\
-	$(RM) $(OBJ)\n\
-	$(RM) $(OBJ_DIR)\n\
-	$(RM) $(NAME)\n\
+fclean:				clean\n\
+					$(REMOVE) $(NAME)\n\
 \n\
-re: fclean all\n\
+re:					fclean all\n\
 \n\
-obj_dir:\n\
-	@if [ ! -d \"$(OBJ_DIR)\" ]; then\n\
-		mkdir $(OBJ_DIR);\n\
-	else\n\
-		echo \"make: Nothing to be done for 'all'.\";\n\
-	fi\n\
-\n\
-.PHONY= all clean fclean re $(NAME)"
+.PHONY:				all clean fclean re\n\
+"
 
-# define README "# Hello %s\n"
+# define GITIGNORE "\
+# Prerequisites\n\
+*.d\n\
+\n\
+# Object files\n\
+*.o\n\
+*.ko\n\
+*.obj\n\
+*.elf\n\
+\n\
+# Linker output\n\
+*.ilk\n\
+*.map\n\
+*.exp\n\
+\n\
+# Precompiled Headers\n\
+*.gch\n\
+*.pch\n\
+\n\
+# Libraries\n\
+*.lib\n\
+*.a\n\
+*.la\n\
+*.lo\n\
+\n\
+# Shared objects (inc. Windows DLLs)\n\
+*.dll\n\
+*.so\n\
+*.so.*\n\
+*.dylib\n\
+\n\
+# Executables\n\
+*.exe\n\
+*.out\n\
+*.app\n\
+*.i*86\n\
+*.x86_64\n\
+*.hex\n\
+\n\
+# Debug files\n\
+*.dSYM/\n\
+*.su\n\
+*.idb\n\
+*.pdb\n\
+\n\
+# Kernel Module Compile Results\n\
+*.mod*\n\
+*.cmd\n\
+.tmp_versions/\n\
+modules.order\n\
+Module.symvers\n\
+Mkfile.old\n\
+dkms.conf\n\
+\n\
+# Custom files\n\
+%s\n\
+.normignore\n\
+\n\
+# Custom directories\n\
+.vscode/\n\
+"
 
-# define DOT_H "\n#ifndef %s_H\n\
+# define README "# %s\n"
+
+# define DOT_H "\
+#ifndef %s_H\n\
 # define %s_H\n\
 \n\
-#endif\n"
+#endif /* %s_H */\n\
+"
 
-# define MAIN "\n#include \"%s.h\"\n\
+# define MAIN "\
+#include \"%s.h\"\n\
 \n\
 int	main(void)\n\
 {\n\
 \treturn (0);\n\
-}\n"
+}\n\
+"
+
 typedef struct s_cli
 {
-	char	*option;
-	char	*arg;
 	char	*name;
 	char	*dir;
 	char	*include;
-} cli;
+}	cli;
 
-void	init_cli(cli *data, int argc, char **argv);
+void	init_cli(cli *data, char **argv);
 void	free_cli(cli *data);
-void	validate_option(cli *data);
-void	validate_arg(cli *data);
 void	validate_name(cli *data);
 void	building_project(cli *data);
-
 void	write_in_files(cli *data);
 
-//Utils
+// Utils
 char	*join(char *s1, char *s2);
 char	*strmapi(char const *s, int (*f)(int));
 
-#endif
+#endif /* FT_CLI */

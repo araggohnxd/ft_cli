@@ -1,4 +1,3 @@
-
 #include "ft_cli.h"
 
 char	*join(char *s1, char *s2)

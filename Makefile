@@ -1,53 +1,49 @@
+NAME				:= ft
 
-NAME	= ft
-CC		= clang
-CFLAGS	= -Wall -Werror -Wextra -g
-INCLUDE	= -I ./app/include
+HEADER_PATH			:= ./app/include
+HEADER_FILES		:= ft_cli.h
 
-SRC = main.c
-SRC += init_and_free_cli.c
-SRC += validate_option.c
-SRC += validate_arg.c
-SRC += validate_name.c
-SRC += building_project.c
-SRC += cli_utils.c
-SRC += write_in_files.c
+SOURCE_PATH			:= ./app/src
+SOURCE_FILES		:= main.c
+SOURCE_FILES 		+= init_and_free_cli.c
+SOURCE_FILES		+= validate_name.c
+SOURCE_FILES		+= building_project.c
+SOURCE_FILES 		+= cli_utils.c
+SOURCE_FILES 		+= write_in_files.c
 
-OBJS = $(SRC:.c=.o)
-OBJ = $(addprefix ./app/obj/, $(OBJS))
-OBJ_DIR = ./app/obj
+OBJECT_PATH			:= ./app/obj
+OBJECT_FILES		:= $(SOURCE_FILES:%.c=$(OBJECT_PATH)/%.o)
 
-RM = rm -rf
+LOCAL_INSTALL		:= /usr/local/bin
 
-VPATH = ./app/src
+CC					:= cc
+CFLAGS				:= -Wall -Werror -Wextra -g3
+IFLAGS				:= -I ./app/include
+REMOVE				:= rm -rf
 
-LOCAL_INSTALL = /usr/local/bin
+vpath				%.c $(SOURCE_PATH)
+vpath				%.h $(HEADER_PATH)
 
-$(OBJ_DIR)/%.o: %.c
-			$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+all:				$(NAME)
 
-all: obj_dir $(NAME)
+$(NAME):			$(OBJECT_FILES)
+					$(CC) $(CFLAGS) -o $@ $(OBJECT_FILES)
 
-$(NAME): $(OBJ)
-		$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+$(OBJECT_PATH)/%.o:	%.c $(HEADER_FILES) Makefile | $(OBJECT_PATH)
+					$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+
+$(OBJECT_PATH):
+					mkdir -p $@
 
 clean:
-	$(RM) $(OBJ)
-	$(RM) $(OBJ_DIR)
+					$(REMOVE) $(OBJECT_PATH)
 
-fclean: clean
-	$(RM) $(NAME)
+fclean:				clean
+					$(REMOVE) $(NAME)
 
-install: $(NAME)
-	cp $(NAME) $(LOCAL_INSTALL)
+install:			$(NAME)
+					cp $(NAME) $(LOCAL_INSTALL)
 
-re: fclean all
+re:					fclean all
 
-obj_dir:
-	@if [ ! -d "$(OBJ_DIR)" ]; then\
-		mkdir $(OBJ_DIR);\
-	else\
-		echo "make: Nothing to be done for 'all'.";\
-	fi
-
-.PHONY= all clean fclean re install $(NAME)
+.PHONY:				all clean fclean re install
