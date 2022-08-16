@@ -62,13 +62,14 @@ static void	make_dir_structs(cli *data)
 
 static void	make_structs(cli *data)
 {
-	printf("Building %s\n", data->name);
+	printf("Starting to build %s\n", data->name);
 	make_file(data->dir, "Makefile");
 	make_file(data->dir, "README.md");
 	make_file(data->dir, ".gitignore");
 	make_dir_structs(data);
 	make_main(data);
 	make_include(data);
+	printf("Done building %s\n", data->name);
 }
 
 static char	*make_path_dir(char *cwd, char *name)
