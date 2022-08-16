@@ -10,10 +10,10 @@ O comando a seguir instalará o projeto em sua máquina.
 sudo make install
 ```
 
-## Como usar a *ft cli*
+## Como usar a *ft_cli*
 
 ```
-ft <project-name>
+ft <nome-do-projeto>
 ```
 
 ### Exemplo
