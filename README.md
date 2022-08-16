@@ -1,6 +1,6 @@
-# ft *CLI*
+# ft_cli
 
-_Esse é uma cli voltada ao desenvolvimento de projetos em C. O objetivo da **ft cli** é automatizar o começo de projetos em C, criando os diretórios e arquivos necessários para o começo do projeto._
+_Essa é uma CLI voltada ao desenvolvimento de projetos em C. O objetivo da **ft_cli** é automatizar o começo de projetos em C, criando os diretórios e arquivos necessários para o começo do projeto._
 
 ## Como instalar
 
@@ -13,13 +13,13 @@ sudo make install
 ## Como usar a *ft cli*
 
 ```
-ft [option] [argument] [project_name]
+ft <project-name>
 ```
 
 ### Exemplo
 
 ```
-ft new project minishell
+ft minishell
 ```
 
-![giff exemplo do ft cli](./assets/ft_cli_ex.gif)
+![gif exemplo do ft_cli](./assets/ft_cli_ex.gif)
