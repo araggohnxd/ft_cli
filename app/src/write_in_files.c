@@ -26,7 +26,7 @@ static void	write_in_file(cli *data, char *file, char *text)
 void	write_in_files(cli *data)
 {
 	char	*include = join("includes/", data->include);
-	char	*file[5] = {"Makefile", "README.md", include, "src/main.c", ".gitignore"};
+	char	*file[5] = {"Makefile", "README.md", include, "sources/main.c", ".gitignore"};
 	char	*text[5] = {MAKEFILE, README, DOT_H, MAIN, GITIGNORE};
 	int		i;
 

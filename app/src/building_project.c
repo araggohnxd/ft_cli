@@ -40,7 +40,7 @@ static void	make_main(cli *data)
 {
 	char	*pathmain;
 
-	pathmain = join(data->dir, "src/");
+	pathmain = join(data->dir, "sources/");
 	make_file(pathmain, "main.c");
 	free(pathmain);
 }
@@ -50,7 +50,7 @@ static void	make_dir_structs(cli *data)
 	char *dirs[2];
 
 	dirs[0] = join(data->dir, "includes");
-	dirs[1] = join(data->dir, "src");
+	dirs[1] = join(data->dir, "sources");
 	for(int i = 0; i < 2; i++)
 	{
 		printf("Created dir %s\n", dirs[i]);
