@@ -22,7 +22,7 @@ ft <nome-do-projeto> [--libft]
 ft minishell
 ```
 
-A opção `--libft` habilita a clonagem do seu repositórido do libft para a pasta do projeto. Na primeira execução, você deverá indicar a URL do seu repositório da libft. Essa URL ficará salva no diretório `~/.config/ft`, e pode ser alterado a qualquer momento pelo usuário.
+A opção `--libft` habilita a clonagem do seu repositório da libft para a pasta do projeto. Na primeira execução, você deverá indicar a URL do seu repositório da libft. Essa URL ficará salva no diretório `~/.config/ft`, e pode ser alterado a qualquer momento pelo usuário.
 
 ```
 ft minishell --libft
