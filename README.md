@@ -13,13 +13,23 @@ sudo make install
 ## Como usar a *ft_cli*
 
 ```
-ft <nome-do-projeto>
+ft <nome-do-projeto> [--libft]
 ```
 
 ### Exemplo
 
 ```
 ft minishell
+```
+
+A opção `--libft` habilita a clonagem do seu repositórido do libft para a pasta do projeto. Na primeira execução, você deverá indicar a URL do seu repositório da libft. Essa URL ficará salva no diretório `~/.config/ft`, e pode ser alterado a qualquer momento pelo usuário.
+
+```
+ft minishell --libft
+
+A config file for your default libft repository wasn't found.
+Enter a URL to set it as default:
+<libft-url>
 ```
 
 ![gif exemplo do ft_cli](./assets/ft_cli_ex.gif)

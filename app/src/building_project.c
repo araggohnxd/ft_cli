@@ -1,5 +1,20 @@
 #include "ft_cli.h"
 
+static void	make_libft(cli *data)
+{
+	char	*aux;
+	char	*full_command;
+
+	aux = join("git clone ", data->libft_url);
+	full_command = join(aux, " libft");
+	chdir(data->name);
+	system(full_command);
+	chdir("libft");
+	system("rm -rf .git*");
+	free(aux);
+	free(full_command);
+}
+
 static void	make_file(char *path, char *file)
 {
 	char	*pathname;
@@ -22,7 +37,7 @@ static int	make_dir(char *pathdir)
 		return (-1);
 	}
 	else
-		mkdir(pathdir, 0775);
+		mkdir(pathdir, 0755);
 	return (0);
 }
 
@@ -62,7 +77,7 @@ static void	make_dir_structs(cli *data)
 
 static void	make_structs(cli *data)
 {
-	printf("Starting to build %s\n", data->name);
+	printf("\nStarting to build %s\n", data->name);
 	make_file(data->dir, "Makefile");
 	make_file(data->dir, "README.md");
 	make_file(data->dir, ".gitignore");
@@ -98,4 +113,6 @@ void	building_project(cli *data)
 		exit(1);
 	}
 	make_structs(data);
+	if (data->libft)
+		make_libft(data);
 }
