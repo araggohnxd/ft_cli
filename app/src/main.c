@@ -21,13 +21,13 @@ void	parse_arguments(cli *data, char **argv)
 			data->name = strdup(argv[index]);
 		else if (argv[index][0] != '-' && data->name)
 			exit_error_msg(data, argv[index], "invalid option");
-		else if (argv[index][0] == '-' && (strcmp(argv[index], "--help") == 0 || strcmp(argv[index], "-h") == 0))
+		else if (strcmp(argv[index], "--help") == 0 || strcmp(argv[index], "-h") == 0)
 			data->help = 1;
-		else if (argv[index][0] == '-' && (strcmp(argv[index], "--libft") == 0 || strcmp(argv[index], "-l") == 0))
+		else if (strcmp(argv[index], "--libft") == 0 || strcmp(argv[index], "-l") == 0)
 			data->libft = 1;
-		else if (argv[index][0] == '-' && (strcmp(argv[index], "--actions") == 0 || strcmp(argv[index], "-a") == 0))
+		else if (strcmp(argv[index], "--actions") == 0 || strcmp(argv[index], "-a") == 0)
 			data->actions = 1;
-		else if (argv[index][0] == '-' && (strcmp(argv[index], "-la") == 0 || strcmp(argv[index], "-al") == 0))
+		else if (strcmp(argv[index], "-la") == 0 || strcmp(argv[index], "-al") == 0)
 		{
 			data->libft = 1;
 			data->actions = 1;
