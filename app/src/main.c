@@ -35,6 +35,8 @@ void	parse_arguments(cli *data, char **argv)
 		else
 			exit_error_msg(data, argv[index], "invalid option");
 	}
+	if (!data->name)
+		exit_error_msg(data, "missing argument", "project name");
 	if (data->help)
 		display_help();
 	if (data->libft)
