@@ -16,6 +16,8 @@ OBJECT_PATH			:= ./app/obj
 OBJECT_FILES		:= $(SOURCE_FILES:%.c=$(OBJECT_PATH)/%.o)
 
 LOCAL_INSTALL		:= /usr/local/bin
+LOCAL_MAN			:= /usr/share/man/man1/ft.1
+MAN_FILE			:= ./assets/ft_man
 
 CC					:= cc
 CFLAGS				:= -Wall -Werror -Wextra -g3
@@ -45,6 +47,8 @@ fclean:				clean
 
 install:			$(NAME)
 					cp $(NAME) $(LOCAL_INSTALL)
+					cp $(MAN_FILE) $(LOCAL_MAN)
+					gzip $(LOCAL_MAN)
 
 re:					fclean all
 

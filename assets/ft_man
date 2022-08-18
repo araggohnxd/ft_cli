@@ -1,0 +1,26 @@
+.\" Manpage for ft.
+.TH man 1 "18 October 2022" "1.0" "ft_cli manual"
+.SH NAME
+ft \- start your C projects with ease
+.SH SYNOPSIS
+ft [PROJECT-NAME] [OPTIONS]...
+.SH DESCRIPTION
+Initialize your 42 C projects with a basic structure set. A compiling Makefile, a header file and a C file with a main function. Simple .gitignore and README.md files will also be created. Options will allow you to start with some extra features.
+.SH OPTIONS
+.TP
+.BR -h,	--help
+Displays a simple guide for usage.
+
+.TP
+.BR -l,	--libft
+Clones the libft repository pointed to by ft's configuration file (~/.config/ft). If the file doesn't exist, a prompt will be displayed asking the user for a repository URL.
+
+.TP
+.BR -a,	--actions
+Creates a Github Actions workflow that allows you to push your project both to Github and 42's Vogsphere at the same time.
+
+NOTE: In order for it to work, you have to previously set specific Secrets in your project's Github page.
+Check [https://github.com/araggohnxd/vogsphere-github-actions] for more info.
+
+.SH AUTHOR
+Written by lamorim and maolivei.

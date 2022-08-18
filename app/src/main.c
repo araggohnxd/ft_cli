@@ -35,10 +35,10 @@ void	parse_arguments(cli *data, char **argv)
 		else
 			exit_error_msg(data, argv[index], "invalid option");
 	}
-	if (!data->name)
-		exit_error_msg(data, "missing argument", "project name");
 	if (data->help)
 		display_help();
+	if (!data->name)
+		exit_error_msg(data, "missing argument", "project name");
 	if (data->libft)
 		init_libft(data);
 }
@@ -48,7 +48,11 @@ int	main(int argc, char **argv)
 	cli	data;
 
 	if (argc == 1)
-		display_help();
+	{
+		dprintf(2, "usage: ft [PROJECT-NAME] [OPTIONS]...\n");
+		dprintf(2, "try ft --help for more information\n");
+		return (1);
+	}
 	init_cli(&data);
 	parse_arguments(&data, argv);
 	validate_name(&data);
