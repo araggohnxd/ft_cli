@@ -1,5 +1,25 @@
 #include "ft_cli.h"
 
+// git clone git@github.com:araggohnxd/vogsphere-github-actions.git
+// mkdir -p .github/workflows
+// mv vogsphere-github-actions/main.yaml .github/workflows
+// rm -rf vogsphere-github-actions
+
+static void	make_actions(cli *data)
+{
+	chdir(data->name);
+	if (access(".github/workflows/main.yaml", F_OK) == 0)
+	{
+		dprintf(2, "ft: actions: yaml file already exists\n");
+		return;
+	}
+	system("git clone git@github.com:araggohnxd/vogsphere-github-actions.git");
+	system("mkdir -p .github/workflows");
+	system("mv vogsphere-github-actions/main.yaml .github/workflows");
+	system("rm -rf vogsphere-github-actions");
+	chdir("../");
+}
+
 static void	make_libft(cli *data)
 {
 	char	*aux;
@@ -9,7 +29,7 @@ static void	make_libft(cli *data)
 	chdir(data->name);
 	if (access("libft", F_OK) == 0)
 	{
-		dprintf(2, "ft: libft: library already cloned\n");
+		dprintf(2, "ft: libft: library already exists\n");
 		return;
 	}
 	while (sysret != 0)
@@ -38,6 +58,7 @@ static void	make_libft(cli *data)
 	}
 	chdir("libft");
 	system("rm -rf .git*");
+	chdir("../");
 }
 
 static void	make_file(char *path, char *file)
@@ -57,9 +78,9 @@ static int	make_dir(char *pathdir)
 	dir = opendir(pathdir);
 	if (dir)
 	{
-		dprintf(2, "ft: %s: directory exists\n", pathdir);
+		dprintf(2, "ft: %s: directory already exists\n", pathdir);
 		closedir(dir);
-		return (-1);
+		return (1);
 	}
 	else
 		mkdir(pathdir, 0755);
@@ -102,14 +123,12 @@ static void	make_dir_structs(cli *data)
 
 static void	make_structs(cli *data)
 {
-	printf("\nStarting to build %s\n", data->name);
 	make_file(data->dir, "Makefile");
 	make_file(data->dir, "README.md");
 	make_file(data->dir, ".gitignore");
 	make_dir_structs(data);
 	make_main(data);
 	make_include(data);
-	printf("Done building %s\n", data->name);
 }
 
 static char	*make_path_dir(char *cwd, char *name)
@@ -130,16 +149,23 @@ void	building_project(cli *data)
 {
 	char	cwd[500];
 
+	printf("\nStarting to build %s\n", data->name);
 	getcwd(cwd, 500);
 	data->dir = make_path_dir(cwd, data->name);
 	if (make_dir(data->name) != 0)
 	{
 		if (data->libft)
 			make_libft(data);
+		if (data->actions)
+			make_actions(data);
+		printf("Done building %s\n", data->name);
 		free_cli(data);
 		exit(0);
 	}
 	make_structs(data);
 	if (data->libft)
 		make_libft(data);
+	if (data->actions)
+		make_actions(data);
+	printf("Done building %s\n", data->name);
 }

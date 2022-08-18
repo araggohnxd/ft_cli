@@ -15,6 +15,38 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define HELP_MSG "\
+NAME\n\
+	ft - start your C projects with ease\n\
+\n\
+SYNOPSIS\n\
+	ft [project-name] [OPTIONS]..\n\
+\n\
+DESCRIPTION\n\
+	Initialize your 42 C projects with a basic structure set. A compiling\n\
+	Makefile, a header file and a C file with a main function.\n\
+	Simple .gitignore and README.md files will also be created.\n\
+	Options will allow you to start with some extra features.\n\
+\n\
+	-h, --help\n\
+		Displays this help message.\n\
+\n\
+	-l, --libft\n\
+		Displays a prompt asking for your libft URL. It will then clone it\n\
+		inside the new project's directory.\n\
+\n\
+	-a, --actions\n\
+		Creates a Github Actions workflow that allows you to push your project\n\
+		both to Github and 42's Vogsphere at the same time.\n\
+\n\
+		NOTE: In order for it to work, you have to previously set specific\n\
+		Secrets in your project's Github page.\n\
+		Check [https://github.com/araggohnxd/vogsphere-github-actions] for more info.\n\
+\n\
+AUTHOR\n\
+	Written by lamorim and maolivei.\n\
+"
+
 # define NO_CONFIG_FILE "\
 \nA config file for your default libft repository wasn't found.\n\
 Enter a URL to set it as default:\n\
@@ -207,9 +239,11 @@ typedef struct s_cli
 	char	*ft_dir;
 	char	*libft_file;
 	int		libft;
+	int		actions;
+	int		help;
 }	cli;
 
-void	init_cli(cli *data, char **argv);
+void	init_cli(cli *data);
 void	init_libft(cli *data);
 void	free_cli(cli *data);
 void	free_libft(cli *data);

@@ -39,9 +39,9 @@ void	init_libft(cli *data)
 	printf("\n");
 }
 
-void	init_cli(cli *data, char **argv)
+void	init_cli(cli *data)
 {
-	data->name = strdup(argv[1]);
+	data->name = NULL;
 	data->dir = NULL;
 	data->include = NULL;
 	data->homedir = NULL;
@@ -49,6 +49,7 @@ void	init_cli(cli *data, char **argv)
 	data->libft_file = NULL;
 	data->ft_dir = NULL;
 	data->libft = 0;
+	data->actions = 0;
 }
 
 void	free_libft(cli *data)
