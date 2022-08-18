@@ -1,19 +1,16 @@
 #include "ft_cli.h"
 
-static void	init_libft(cli *data)
+void	init_libft(cli *data)
 {
 	int		fd;
 	char	*line;
-	char	*homedir;
-	char	*ft_dir;
-	char	*libft_file;
 
 	line = NULL;
-	if ((homedir = getenv("HOME")) == NULL)
-		homedir = getpwuid(getuid())->pw_dir;
-	ft_dir = join(homedir, "/.config/ft");
-	libft_file = join(ft_dir, "/libft");
-	fd = open(libft_file, O_RDONLY);
+	if ((data->homedir = getenv("HOME")) == NULL)
+		data->homedir = getpwuid(getuid())->pw_dir;
+	data->ft_dir = join(data->homedir, "/.config/ft");
+	data->libft_file = join(data->ft_dir, "/libft");
+	fd = open(data->libft_file, O_RDONLY);
 	if (fd == -1)
 	{
 		int	create;
@@ -29,18 +26,17 @@ static void	init_libft(cli *data)
 			else
 				break ;
 		}
-		mkdir(ft_dir, 0755);
-		create = open(libft_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		mkdir(data->ft_dir, 0755);
+		create = open(data->libft_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		write(create, line, strlen(line));
 		close(create);
-		fd = open(libft_file, O_RDONLY);
+		fd = open(data->libft_file, O_RDONLY);
 	}
 	data->libft_url = get_next_line(fd);
 	data->libft_url[strlen(data->libft_url) - 1] = '\0';
 	close(fd);
 	free(line);
-	free(ft_dir);
-	free(libft_file);
+	printf("\n");
 }
 
 void	init_cli(cli *data, char **argv)
@@ -48,18 +44,24 @@ void	init_cli(cli *data, char **argv)
 	data->name = strdup(argv[1]);
 	data->dir = NULL;
 	data->include = NULL;
+	data->homedir = NULL;
 	data->libft_url = NULL;
-	if (data->libft)
-		init_libft(data);
+	data->libft_file = NULL;
+	data->ft_dir = NULL;
+	data->libft = 0;
+}
+
+void	free_libft(cli *data)
+{
+	memfree((void *)&data->libft_url);
+	memfree((void *)&data->ft_dir);
+	memfree((void *)&data->libft_file);
 }
 
 void	free_cli(cli *data)
 {
-	free(data->name);
-	if (data->dir)
-		free(data->dir);
-	if (data->include)
-		free(data->include);
-	if (data->libft_url)
-		free(data->libft_url);
+	memfree((void *)&data->name);
+	memfree((void *)&data->dir);
+	memfree((void *)&data->include);
+	free_libft(data);
 }

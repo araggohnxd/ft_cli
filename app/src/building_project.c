@@ -4,15 +4,40 @@ static void	make_libft(cli *data)
 {
 	char	*aux;
 	char	*full_command;
+	int		sysret = 1;
 
-	aux = join("git clone ", data->libft_url);
-	full_command = join(aux, " libft");
 	chdir(data->name);
-	system(full_command);
+	if (access("libft", F_OK) == 0)
+	{
+		dprintf(2, "ft: libft: library already cloned\n");
+		return;
+	}
+	while (sysret != 0)
+	{
+		aux = join("git clone ", data->libft_url);
+		full_command = join(aux, " libft");
+		sysret = WEXITSTATUS(system(full_command));
+		free(aux);
+		free(full_command);
+		if (sysret != 0)
+		{
+			int	c;
+
+			if (access(data->libft_file, F_OK) == 0)
+				unlink(data->libft_file);
+			dprintf(2, BAD_LIB_URL);
+			c = getchar();
+			if (c == 'y' || c == 'Y' || c == '\n')
+			{
+				free_libft(data);
+				init_libft(data);
+			}
+			else
+				return;
+		}
+	}
 	chdir("libft");
 	system("rm -rf .git*");
-	free(aux);
-	free(full_command);
 }
 
 static void	make_file(char *path, char *file)
@@ -109,8 +134,10 @@ void	building_project(cli *data)
 	data->dir = make_path_dir(cwd, data->name);
 	if (make_dir(data->name) != 0)
 	{
+		if (data->libft)
+			make_libft(data);
 		free_cli(data);
-		exit(1);
+		exit(0);
 	}
 	make_structs(data);
 	if (data->libft)

@@ -8,6 +8,7 @@
 # include <ctype.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/wait.h>
 # include <dirent.h>
 # include <fcntl.h>
 # include <pwd.h>
@@ -17,6 +18,11 @@
 # define NO_CONFIG_FILE "\
 \nA config file for your default libft repository wasn't found.\n\
 Enter a URL to set it as default:\n\
+"
+
+# define BAD_LIB_URL "\
+\nThe URL you provided is not valid.\n\
+Want to try again? (y/n): \
 "
 
 # define MAKEFILE_LIB "\
@@ -197,11 +203,16 @@ typedef struct s_cli
 	char	*dir;
 	char	*include;
 	char	*libft_url;
+	char	*homedir;
+	char	*ft_dir;
+	char	*libft_file;
 	int		libft;
 }	cli;
 
 void	init_cli(cli *data, char **argv);
+void	init_libft(cli *data);
 void	free_cli(cli *data);
+void	free_libft(cli *data);
 void	validate_name(cli *data);
 void	building_project(cli *data);
 void	write_in_files(cli *data);
