@@ -222,6 +222,7 @@ typedef struct s_cli
 	int		help;
 }	cli;
 
+void	parse_arguments(cli *data, char **argv);
 void	init_cli(cli *data);
 void	init_libft(cli *data);
 void	free_cli(cli *data);
@@ -229,6 +230,8 @@ void	free_libft(cli *data);
 void	validate_name(cli *data);
 void	building_project(cli *data);
 void	write_in_files(cli *data);
+void	display_help(void);
+void	exit_error_msg(cli *data, char *str, char *msg);
 
 // Utils
 void	memfree(void **ptr);

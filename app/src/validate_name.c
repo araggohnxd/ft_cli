@@ -5,5 +5,5 @@ void	validate_name(cli *data)
 	if (isalnum(data->name[0]))
 		building_project(data);
 	else
-		dprintf(2, "ft: %s: not a valid name\n", data->name);
+		exit_error_msg(data, "not a valid name", data->name);
 }

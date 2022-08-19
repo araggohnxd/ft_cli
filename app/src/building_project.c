@@ -1,10 +1,5 @@
 #include "ft_cli.h"
 
-// git clone git@github.com:araggohnxd/vogsphere-github-actions.git
-// mkdir -p .github/workflows
-// mv vogsphere-github-actions/main.yaml .github/workflows
-// rm -rf vogsphere-github-actions
-
 static void	make_actions(cli *data)
 {
 	chdir(data->name);
@@ -18,6 +13,24 @@ static void	make_actions(cli *data)
 	system("mv vogsphere-github-actions/main.yaml .github/workflows");
 	system("rm -rf vogsphere-github-actions");
 	chdir("../");
+}
+
+static int	retry_libft(cli *data)
+{
+	int	c;
+
+	if (access(data->libft_file, F_OK) == 0)
+		unlink(data->libft_file);
+	dprintf(2, BAD_LIB_URL);
+	c = getchar();
+	if (c == 'y' || c == 'Y' || c == '\n')
+	{
+		free_libft(data);
+		init_libft(data);
+	}
+	else
+		return (1);
+	return (0);
 }
 
 static void	make_libft(cli *data)
@@ -40,21 +53,8 @@ static void	make_libft(cli *data)
 		free(aux);
 		free(full_command);
 		if (sysret != 0)
-		{
-			int	c;
-
-			if (access(data->libft_file, F_OK) == 0)
-				unlink(data->libft_file);
-			dprintf(2, BAD_LIB_URL);
-			c = getchar();
-			if (c == 'y' || c == 'Y' || c == '\n')
-			{
-				free_libft(data);
-				init_libft(data);
-			}
-			else
+			if (retry_libft(data) != 0)
 				return;
-		}
 	}
 	chdir("libft");
 	system("rm -rf .git*");
@@ -147,11 +147,12 @@ static char	*make_path_dir(char *cwd, char *name)
 
 void	building_project(cli *data)
 {
-	char	cwd[500];
+	char	*cwd;
 
 	printf("\nStarting to build %s\n", data->name);
-	getcwd(cwd, 500);
+	cwd = getcwd(NULL, 0);
 	data->dir = make_path_dir(cwd, data->name);
+	free(cwd);
 	if (make_dir(data->name) != 0)
 	{
 		if (data->libft)

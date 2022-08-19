@@ -5,12 +5,16 @@ HEADER_FILES		:= ft_cli.h
 
 SOURCE_PATH			:= ./app/src
 SOURCE_FILES		:= main.c
-SOURCE_FILES 		+= init_and_free_cli.c
+SOURCE_FILES 		+= init_free_cli.c
+SOURCE_FILES 		+= init_free_libft.c
 SOURCE_FILES		+= validate_name.c
 SOURCE_FILES		+= building_project.c
 SOURCE_FILES 		+= cli_utils.c
 SOURCE_FILES 		+= get_next_line.c
 SOURCE_FILES 		+= write_in_files.c
+SOURCE_FILES 		+= parsing.c
+SOURCE_FILES 		+= help.c
+SOURCE_FILES 		+= error.c
 
 OBJECT_PATH			:= ./app/obj
 OBJECT_FILES		:= $(SOURCE_FILES:%.c=$(OBJECT_PATH)/%.o)
