@@ -1,6 +1,6 @@
 # ft_cli
 
-The purpose of **ft_cli** is to automatize the kickstart of C projects, creating the basic required directories and files for any project you start building.
+The purpose of **ft_cli** is to automate the kickstart of C projects, creating the basic required directories and files for any project you start building.
 
 ## WARNING!
 
