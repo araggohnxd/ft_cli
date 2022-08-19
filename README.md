@@ -4,7 +4,7 @@ The purpose of **ft_cli** is to automatize the kickstart of C projects, creating
 
 ## WARNING!
 
-**ft_cli** aims to be a swift solution to the repetitive headache of creating the same file structure every time you start a new project. However, keep in mind that you should know how to start your own projects without needing it. It is a mere convenience for us cadets, but shouldn't be seen as a replacement to basic knowledge. Learning how to create a Makefile and a fluid workflow structure is very important, and you must not skip those steps. Also, using a convenience tool without understanding exactly what it does and without knowing how to replicate it's behavior manually WILL be consdidered CHEATING.
+**ft_cli** aims to be a swift solution to the repetitive headache of creating the same file structure every time you start a new project. However, keep in mind that you should know how to start your own projects without needing it. It is a mere convenience for us cadets, but shouldn't be seen as a replacement to basic knowledge. Learning how to create a Makefile and a fluid workflow structure is very important, and you must not skip those steps. Also, using a convenience tool without understanding exactly what it does and without knowing how to replicate it's behavior manually WILL be considered CHEATING.
 
 ## Installation
 
