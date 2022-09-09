@@ -52,10 +52,14 @@ OBJECT_PATH			:= ./objects\n\
 OBJECT_FILES		:= $(SOURCE_FILES:%%.c=$(OBJECT_PATH)/%%.o)\n\
 \n\
 CC					:= cc\n\
-CFLAGS				:= -g3 -Wall -Werror -Wextra\n\
+CFLAGS				:= -Wall -Wextra -Werror\n\
 IFLAGS				:= -I $(HEADER_PATH)\n\
 LDFLAGS				:= -L $(LIBFT_PATH) -lft\n\
 REMOVE				:= rm -rf\n\
+\n\
+ifdef C_DEBUG\n\
+	CFLAGS += -g3\n\
+endif\n\
 \n\
 vpath				%%.c $(SOURCE_PATH)\n\
 vpath				%%.h $(HEADER_PATH)\n\
@@ -99,9 +103,13 @@ OBJECT_PATH			:= ./objects\n\
 OBJECT_FILES		:= $(SOURCE_FILES:%%.c=$(OBJECT_PATH)/%%.o)\n\
 \n\
 CC					:= cc\n\
-CFLAGS				:= -g3 -Wall -Werror -Wextra\n\
+CFLAGS				:= -Wall -Wextra -Werror\n\
 IFLAGS				:= -I $(HEADER_PATH)\n\
 REMOVE				:= rm -rf\n\
+\n\
+ifdef C_DEBUG\n\
+	CFLAGS += -g3\n\
+endif\n\
 \n\
 vpath				%%.c $(SOURCE_PATH)\n\
 vpath				%%.h $(HEADER_PATH)\n\
