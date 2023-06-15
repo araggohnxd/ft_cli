@@ -45,7 +45,8 @@ HEADER_FILES		:= %s.h\n\
 LIBFT_PATH			:= ./libft\n\
 LIBFT				:= $(LIBFT_PATH)/libft.a\n\
 \n\
-SOURCE_PATH			:= ./sources\n\
+SOURCE_DIRS			:=\n\
+SOURCE_PATH			:= ./sources $(addprefix ./sources/, $(SOURCE_DIRS))\n\
 SOURCE_FILES		:= main.c\n\
 \n\
 OBJECT_PATH			:= ./objects\n\
@@ -53,7 +54,7 @@ OBJECT_FILES		:= $(SOURCE_FILES:%%.c=$(OBJECT_PATH)/%%.o)\n\
 \n\
 CC					:= cc\n\
 CFLAGS				:= -Wall -Wextra -Werror\n\
-IFLAGS				:= -I $(HEADER_PATH)\n\
+IFLAGS				:= -I $(HEADER_PATH) -I $(LIBFT_PATH)/includes\n\
 LDFLAGS				:= -L $(LIBFT_PATH) -lft\n\
 REMOVE				:= rm -rf\n\
 \n\
@@ -79,11 +80,9 @@ $(LIBFT):\n\
 \n\
 clean:\n\
 					$(REMOVE) $(OBJECT_PATH)\n\
-					$(MAKE) -C $(LIBFT_PATH) clean\n\
 \n\
 fclean:				clean\n\
 					$(REMOVE) $(NAME)\n\
-					$(MAKE) -C $(LIBFT_PATH) fclean\n\
 \n\
 re:					fclean all\n\
 \n\
@@ -96,7 +95,8 @@ NAME				:= %s\n\
 HEADER_PATH			:= ./includes\n\
 HEADER_FILES		:= %s.h\n\
 \n\
-SOURCE_PATH			:= ./sources\n\
+SOURCE_DIRS			:=\n\
+SOURCE_PATH			:= ./sources $(addprefix ./sources/, $(SOURCE_DIRS))\n\
 SOURCE_FILES		:= main.c\n\
 \n\
 OBJECT_PATH			:= ./objects\n\
